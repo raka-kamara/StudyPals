@@ -144,8 +144,8 @@ const Navbar = () => {
               className='menu menu-sm my-10 dropdown-content pl-32 lg:pl-2 mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'
             >
               <li>
-                <Link to='/myProfile' className='justify-between'>
-                  My Profile
+                <Link to='/my-attempted-assignments' className='justify-between'>
+                  My Attempted Assignments
                 </Link>
               </li>
               

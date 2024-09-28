@@ -26,7 +26,7 @@ const Banner = () => {
                         Your Ultimate Group Study Platform
                     </p>
                     <div className='flex justify-center'>
-                        <Link to="/login">
+                        <Link to="/assignments">
                             <button className='text-white bg-black bg-opacity-45 text-xl p-3 rounded-lg border hover:bg-blue-900 hover:scale-110 border-red-400'>
                                 Let's Study Together
                             </button>

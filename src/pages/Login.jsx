@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import Background from "./Shared/Background";
 import img from "../assets/img2.jpg";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,15 +20,26 @@ const Login = () => {
     const email = form.email.value; // Access email input by name
     const password = form.password.value; // Access password input by name
 
-    try {
-      const result = await signIn(email, password);
-      console.log(result);
-      toast.success("SignIn Successful");
-      navigate(location?.state ? location.state : "/");
-    } catch (err) {
-      console.log(err);
-      toast.error(err?.message);
-    }
+    signIn(email, password)
+      .then((result) => {
+        const loggedInUser = result.user;
+        console.log(loggedInUser);
+        const user = { email };
+        axios.post('http://localhost:5000/jwt', user)
+        .then(res=>{
+          console.log(res.data)
+        })
+
+        // get access token
+        // axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
+        //     .then(res => {
+        //         console.log(res.data)
+        //         if (res.data.success) {
+        //             navigate(location?.state ? location?.state : '/')
+        //         }
+        //     })
+      })
+      .catch((error) => console.log(error));
   };
 
   // googleSignIn
@@ -123,8 +135,6 @@ const Login = () => {
               />
             </div>
 
-         
-
             <div className="mt-6 text-center">
               <button
                 type="submit"
@@ -134,18 +144,18 @@ const Login = () => {
               </button>
             </div>
           </form>
-             <div>
-              <h3 className="text-center py-5 text-lg text-[#]">Or Login With</h3>
-              <div className="flex justify-center pb-5 items-center gap-5">
-                <button
-                  onClick={handleGoogleSignIn}
-                  className="flex items-center gap-1 btn bg-[#FAF4E4] text-lg"
-                >
-                  <FcGoogle />
-                  Google
-                </button>
-              </div>
+          <div>
+            <h3 className="text-center py-5 text-lg text-[#]">Or Login With</h3>
+            <div className="flex justify-center pb-5 items-center gap-5">
+              <button
+                onClick={handleGoogleSignIn}
+                className="flex items-center gap-1 btn bg-[#FAF4E4] text-lg"
+              >
+                <FcGoogle />
+                Google
+              </button>
             </div>
+          </div>
         </div>
         <div
           className="hidden bg-cover lg:block lg:w-1/2"
